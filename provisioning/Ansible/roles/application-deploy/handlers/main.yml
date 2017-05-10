@@ -1,0 +1,17 @@
+---
+# handlers file for application-deploy
+
+- name: restart supervisorctl
+  service: name=supervisor state=restarted
+
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: reload supervisorctl
+  service: name=supervisor state=reload
+
+- name: restart demo-a-b
+  shell: "/usr/bin/supervisorctl restart demo-a-b"
+
+- name: haproxy-restart
+  service: name=haproxy state=restarted

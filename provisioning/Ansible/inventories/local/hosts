@@ -1,0 +1,12 @@
+[stage:children]
+app
+haproxy
+
+[stage:vars]
+
+[app]
+app1.local.dev
+app2.local.dev
+
+[haproxy]
+haproxy.local.dev

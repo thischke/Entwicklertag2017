@@ -1,0 +1,12 @@
+---
+
+localhost:
+  ip: 192.168.0.108
+
+install:
+  dir: /root/INSTALL
+  
+app:
+  basedir: /opt
+  group: www-data
+  user: www-data

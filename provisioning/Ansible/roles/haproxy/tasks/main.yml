@@ -1,0 +1,28 @@
+---
+
+- name: install the latest version of haproxy
+  apt: name=haproxy state=latest
+
+- name: create stats directory
+  file: path=/var/lib/haproxy state=directory owner=root group=root
+
+- name: enable init script
+  lineinfile: destfile=/etc/default/haproxy regexp='^ENABLED=' line='ENABLED=1'
+
+- name: create conf.d directory
+  file: path="/etc/haproxy/conf.d" state=directory owner=haproxy group=haproxy mode=0755
+
+- name: create haproxy base config (top)
+  template: src=haproxy_top.cfg dest=/etc/haproxy/conf.d/00_generic.cfg
+  notify: restart haproxy
+
+- name: create haproxy base config (bottom)
+  template: src=haproxy_bottom.cfg dest=/etc/haproxy/conf.d/99_generic.cfg
+  notify: restart haproxy
+
+- name: assemble haproxy config
+  assemble: src=/etc/haproxy/conf.d/ dest=/etc/haproxy/haproxy.cfg validate='/usr/sbin/haproxy -f %s -c' backup=yes
+  notify: restart haproxy
+
+- name: ensure haproxy is running
+  service: name=haproxy state=started

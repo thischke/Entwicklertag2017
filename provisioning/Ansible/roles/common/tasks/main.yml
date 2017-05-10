@@ -1,0 +1,24 @@
+---
+
+- name: update apt cache
+  apt: update_cache=yes
+
+# vim installieren
+- name: install vim
+  apt: name=vim state=installed
+
+# curl install
+- name: install curl
+  apt: name=curl state=installed
+
+# create installation directory
+- name: create install directory
+  file: path="/root/INSTALL" state=directory owner=root group=root mode=0755
+
+# grant root ssh access
+- name: set authorized key in alternate location
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', '/Users/thischke/.ssh/id_rsa_entwicklertag.pub') }}"
+    manage_dir: True

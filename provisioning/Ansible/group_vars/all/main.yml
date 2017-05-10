@@ -1,0 +1,4 @@
+# global vars common to all hosts and roles
+# may be overwritten in host_vars and role definitions if desired
+
+artifactory_url: http://artifactory.local.dev:8081/artifactory/entwicklertag2017

@@ -1,0 +1,60 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/trusty64"
+  config.hostsupdater.remove_on_suspend = false
+
+  config.vm.define "app_a" do |app_a|
+    app_a.vm.network "private_network", ip: "192.168.50.200"
+    app_a.vm.hostname = "app1.local.dev"
+    app_a.vm.provider "virtualbox" do |v|
+      v.name = "Entwicklertag2017HostA"
+      v.customize [
+        "modifyvm", :id,
+        "--natdnshostresolver1", "on",
+        "--memory", "2048"
+      ]
+    end
+    app_a.vm.provision "ansible" do |ansible|
+      ansible.playbook = "Ansible/playbook-vagrant-app.yml"
+      ansible.inventory_path = "Ansible/inventories/local"
+      ansible.limit = 'app1.local.dev'
+    end
+  end
+
+  config.vm.define "app_b" do |app_b|
+    app_b.vm.network "private_network", ip: "192.168.50.201"
+    app_b.vm.hostname = "app2.local.dev"
+    app_b.vm.provider "virtualbox" do |v|
+      v.name = "Entwicklertag2017HostB"
+      v.customize [
+        "modifyvm", :id,
+        "--natdnshostresolver1", "on",
+        "--memory", "2048"
+      ]
+    end
+    app_b.vm.provision "ansible" do |ansible|
+      ansible.playbook = "Ansible/playbook-vagrant-app.yml"
+      ansible.inventory_path = "Ansible/inventories/local"
+      ansible.limit = 'app2.local.dev'
+    end
+  end
+
+  config.vm.define "haproxy" do |haproxy|
+    haproxy.vm.network "private_network", ip: "192.168.50.205"
+    haproxy.vm.hostname = "haproxy.local.dev"
+    haproxy.vm.provider "virtualbox" do |v|
+      v.name = "Entwicklertag2017HaProxy"
+      v.customize [
+        "modifyvm", :id,
+        "--natdnshostresolver1", "on",
+        "--memory", "2048"
+      ]
+    end
+    haproxy.vm.provision "ansible" do |ansible|
+      ansible.playbook = "Ansible/playbook-vagrant-haproxy.yml"
+    end
+  end
+end

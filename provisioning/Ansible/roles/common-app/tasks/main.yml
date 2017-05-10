@@ -1,0 +1,29 @@
+---
+
+# lxml requirements (for maven_artifact module)
+- name: install lxml requirements
+  apt: "pkg={{ item }} state=present"
+  with_items:
+    - python-pip
+    - python-dev
+    - libxml2
+    - libxml2-dev
+    - libxslt1-dev
+    - lib32z1-dev
+    - libssl-dev
+    - zlib1g-dev
+
+- name: install lxml
+  command: pip install lxml
+  environment:
+      CFLAGS: "-O0"
+
+- name: dns host entry for artifactory
+  lineinfile: destfile=/etc/hosts regexp='^{{ localhost.ip }}' line='{{ localhost.ip }} artifactory.local.dev'
+
+- name: install supervisorctl
+  apt: pkg=supervisor state=present
+
+- name: create supervisorctl config
+  template: src=supervisord.conf dest=/etc/supervisor/supervisord.conf
+  notify: restart supervisorctl

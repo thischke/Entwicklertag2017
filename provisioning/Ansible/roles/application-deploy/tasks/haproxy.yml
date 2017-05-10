@@ -1,0 +1,8 @@
+---
+
+- name: create haproxy config
+  template: src=haproxy.conf dest=/etc/haproxy/conf.d/50_demo-a-b.cfg
+
+- name: re-create haproxy config
+  assemble: backup=yes src=/etc/haproxy/conf.d/ dest=/etc/haproxy/haproxy.cfg validate='/usr/sbin/haproxy -f %s -c'
+  notify: haproxy-restart

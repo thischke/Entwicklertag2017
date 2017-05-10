@@ -1,0 +1,39 @@
+---
+
+- name: install artifact
+  maven_artifact:
+    group_id: com.diva-e.thischke.entwicklertag2017
+    artifact_id: demo-a-b
+    extension: jar
+    repository_url: "{{ artifactory_url }}"
+    dest: "{{ install.dir }}/demo-a-b.jar"
+
+- name: create supervisorctl config
+  template: src=supervisor.conf dest=/etc/supervisor/conf.d/demo-a-b.conf
+  notify: reload supervisorctl
+
+- name: create working dir for spring boot app dir
+  file: path="{{ app.basedir }}/demo-a-b" state=directory group={{ app.group }} owner={{ app.user }}
+
+#- name: create log dir for spring boot app dir
+#  file: path={{ basedir }}/newsletter/logs state=directory group={{ user_groups.web.group }} owner={{ user_groups.web.user }}
+#  tags: newsletter
+
+- name: copy files to working dir
+  copy: remote_src=True src="{{ install.dir }}/demo-a-b.jar" dest="{{ app.basedir }}/demo-a-b"
+
+- name: set user:group to spring boot app
+  file: path={{ app.basedir }}/demo-a-b/demo-a-b.jar group={{ app.group }} owner={{ app.user }}
+  notify:
+    - restart demo-a-b
+
+- name: create www log dir
+  file: path={{ app.basedir }}/demo-a-b/www state=directory group={{ app.group }} owner={{ app.user }} mode=0755
+
+- name: create nginx log dir
+  file: path={{ app.basedir }}/demo-a-b/logs state=directory group={{ app.group }} owner={{ app.user }} mode=0755
+
+- name: create nginx config
+  template: src=nginx.conf dest=/etc/nginx/conf.d/demo-a-b.conf
+  notify:
+    - restart nginx

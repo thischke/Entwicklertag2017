@@ -1,0 +1,5 @@
+---
+# handlers file for application-deploy
+
+- name: restart supervisorctl
+  service: name=supervisor state=restarted

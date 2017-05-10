@@ -1,0 +1,21 @@
+---
+
+#
+# task file to install Oracle Java Development Kit in a system with a Debian based Linux distribution
+#
+
+- name: install add-apt-repository
+  apt: name=software-properties-common state=latest
+
+- name: add Oracle Java Repository
+  apt_repository: repo='ppa:webupd8team/java'
+
+- name: accept Java 8 License
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+- name: install Oracle Java 8
+  apt: name={{item}} state=latest
+  with_items:
+    - oracle-java8-installer
+    - ca-certificates
+    - oracle-java8-set-default

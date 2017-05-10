@@ -1,0 +1,11 @@
+---
+## usage: ansible-playbook -i <inventory> playbook-vagrant-app.yml
+
+- hosts:
+    - all
+  become: true
+  roles:
+    - common
+    - common-app
+    - java
+    - nginx

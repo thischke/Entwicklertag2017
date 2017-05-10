@@ -1,0 +1,7 @@
+---
+## usage: ansible-playbook -i <inventory> playbook-application-deploy.yml
+
+- hosts:
+    - all
+  roles:
+    - application-deploy

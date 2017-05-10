@@ -1,0 +1,9 @@
+---
+
+- name: change app config
+  include: app.yml
+  when: "{{ inventory_hostname in groups['app'] }}"
+
+- name: change haproxy config
+  include: haproxy.yml
+  when: "{{ inventory_hostname in groups['haproxy'] }}"
