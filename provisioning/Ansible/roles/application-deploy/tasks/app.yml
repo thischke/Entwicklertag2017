@@ -10,7 +10,7 @@
 
 - name: create supervisorctl config
   template: src=supervisor.conf dest=/etc/supervisor/conf.d/demo-a-b.conf
-  notify: reload supervisorctl
+  notify: restart supervisorctl
 
 - name: create working dir for spring boot app dir
   file: path="{{ app.basedir }}/demo-a-b" state=directory group={{ app.group }} owner={{ app.user }}

@@ -1,0 +1,4 @@
+---
+
+- name: set inactive
+  file: path="{{ app.basedir }}/demo-a-b/www/.isactive" state=absent

@@ -4,11 +4,11 @@
 - name: restart supervisorctl
   service: name=supervisor state=restarted
 
+- name: reload supervisorctl
+  service: name=supervisor state=reloaded
+
 - name: restart nginx
   service: name=nginx state=restarted
-
-- name: reload supervisorctl
-  service: name=supervisor state=reload
 
 - name: restart demo-a-b
   shell: "/usr/bin/supervisorctl restart demo-a-b"

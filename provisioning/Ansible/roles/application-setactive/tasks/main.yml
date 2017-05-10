@@ -1,0 +1,4 @@
+---
+
+- name: set active
+  file: path="{{ app.basedir }}/demo-a-b/www/.isactive" state=touch group={{ app.group }} owner={{ app.user }}

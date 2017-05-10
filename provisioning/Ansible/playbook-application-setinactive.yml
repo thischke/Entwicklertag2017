@@ -1,0 +1,7 @@
+---
+## usage: ansible-playbook -i <inventory> playbook-application-setinactive.yml
+
+- hosts:
+    - app
+  roles:
+    - application-setinactive
