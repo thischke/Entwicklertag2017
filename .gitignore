@@ -1,1 +1,9 @@
 /provisioning/.vagrant
+
+/demo-a-b/.apt_generated
+/demo-a-b/.classpath
+/demo-a-b/.factorypath
+/demo-a-b/.project
+/demo-a-b/.settings
+/demo-a-b/.springBeans
+/demo-a-b/target
