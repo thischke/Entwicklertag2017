@@ -10,6 +10,3 @@ app2.local.dev
 
 [haproxy]
 haproxy.local.dev
-
-[ssh_connection]
-ssh_args = -o ControlMaster=no
