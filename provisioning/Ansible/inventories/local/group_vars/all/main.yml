@@ -5,8 +5,14 @@ localhost:
 
 install:
   dir: /root/INSTALL
-  
+
 app:
   basedir: /opt
   group: www-data
   user: www-data
+
+nginx:
+  user: www-data
+  worker:
+    processes: 4
+    connections: 1024

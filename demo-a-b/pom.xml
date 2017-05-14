@@ -27,13 +27,13 @@
 	<distributionManagement>
 		<repository>
 			<id>central</id>
-			<name>dbc2b3915981-releases</name>
-			<url>http://localhost:8081/artifactory/entwicklertag2017</url>
+			<name>artifactory.local.dev-releases</name>
+			<url>http://artifactory.local.dev:8081/artifactory/entwicklertag2017</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
-			<name>dbc2b3915981-snapshots</name>
-			<url>http://localhost:8081/artifactory/entwicklertag2017</url>
+			<name>artifactory.local.dev-snapshots</name>
+			<url>http://artifactory.local.dev:8081/artifactory/entwicklertag2017</url>
 		</snapshotRepository>
 	</distributionManagement>
 

@@ -15,10 +15,18 @@
 - name: create install directory
   file: path="/root/INSTALL" state=directory owner=root group=root mode=0755
 
-# grant root ssh access
+# grant ssh access from local
 - name: set authorized key in alternate location
   authorized_key:
     user: root
     state: present
     key: "{{ lookup('file', '/Users/thischke/.ssh/id_rsa_entwicklertag.pub') }}"
+    manage_dir: True
+
+# grant ssh access from jenkins2
+- name: set authorized key in alternate location
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', '/Users/thischke/.ssh/id_jenkins2.pub') }}"
     manage_dir: True
