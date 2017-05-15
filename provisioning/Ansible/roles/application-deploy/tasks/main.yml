@@ -6,4 +6,4 @@
 
 - name: change haproxy config
   include: haproxy.yml
-  when: "{{ inventory_hostname in groups['haproxy'] }}"
+  when: "inventory_hostname|string in groups['haproxy']"
