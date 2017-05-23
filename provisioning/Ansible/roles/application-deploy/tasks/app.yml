@@ -17,6 +17,8 @@
 
 - name: copy files to working dir
   copy: remote_src=True src="{{ install.dir }}/demo-a-b.jar" dest="{{ app.basedir }}/demo-a-b"
+
+- name: restart app
   notify: restart demo-a-b
 
 - name: set user:group to spring boot app
