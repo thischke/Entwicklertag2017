@@ -15,10 +15,6 @@
 - name: create working dir for spring boot app dir
   file: path="{{ app.basedir }}/demo-a-b" state=directory group={{ app.group }} owner={{ app.user }}
 
-#- name: create log dir for spring boot app dir
-#  file: path={{ basedir }}/newsletter/logs state=directory group={{ user_groups.web.group }} owner={{ user_groups.web.user }}
-#  tags: newsletter
-
 - name: copy files to working dir
   copy: remote_src=True src="{{ install.dir }}/demo-a-b.jar" dest="{{ app.basedir }}/demo-a-b"
 
