@@ -17,11 +17,11 @@
 
 - name: copy files to working dir
   copy: remote_src=True src="{{ install.dir }}/demo-a-b.jar" dest="{{ app.basedir }}/demo-a-b"
+  notify:
+    - restart demo-a-b
 
 - name: set user:group to spring boot app
   file: path={{ app.basedir }}/demo-a-b/demo-a-b.jar group={{ app.group }} owner={{ app.user }}
-  notify:
-    - restart demo-a-b
 
 - name: create www log dir
   file: path={{ app.basedir }}/demo-a-b/www state=directory group={{ app.group }} owner={{ app.user }} mode=0755
